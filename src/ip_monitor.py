@@ -1,24 +1,22 @@
 import requests
 import json
 import ipaddress
-from enum import Enum
+import os
+from dotenv import load_dotenv
 from pathlib import Path
 from pync import Notifier
 from loguru import logger
+from structures import IpProtocol
 
 
-class IpProtocol(Enum):
-    IPv4 = "IPv4"
-    IPv6 = "IPv6"
-    INVALID = "Invalid"
+load_dotenv()
 
-
-IP_PROTOCOL = IpProtocol.IPv4
-PUBLIC_IP_WEBSITE = "https://ipinfo.io"
-NOTIFICATION_LINK = "https://azure.com"
-LOG_FILE = Path("logs/ip_change.log")
-CURRENT_IP_FILE = Path("logs/current_ip.txt")
-DEBUG = True
+IP_PROTOCOL = IpProtocol[os.getenv('IP_PROTOCOL', 'IPv4')]
+PUBLIC_IP_WEBSITE = os.getenv('IP_WEBSITE', "https://ipinfo.io")
+NOTIFICATION_LINK = os.getenv('NOTIFICATION_LINK', "https://azure.com")
+LOG_FILE = Path(os.getenv('LOG_FILEPATH', "logs/ip_change.log"))
+CURRENT_IP_FILE = Path(os.getenv('CURRENT_IP_FILEPATH', "logs/current_ip.txt"))
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 logger.add(LOG_FILE, rotation="1 MB")
 
@@ -31,11 +29,13 @@ def get_current_ip() -> str | None:
         logger.error(f"Network error: {e}")
         return
     
-    ip = json.loads(response.text.strip())["ip"]
-    if ip is None:
-        logger.warning(f"IP from {PUBLIC_IP_WEBSITE} returned None.")
+    ip_info: dict = json.loads(response.text.strip())
+    
+    if "ip" not in ip_info:
+        logger.error(f"Key 'ip' not found in reponse dict from {PUBLIC_IP_WEBSITE}.")
+        return
 
-    return ip
+    return ip_info["ip"]
 
 
 def notify_ip_change(new_ip: str | None) -> None:
@@ -44,41 +44,39 @@ def notify_ip_change(new_ip: str | None) -> None:
 
 
 def update_current_ip_file(current_ip: str) -> None:
-    with open(CURRENT_IP_FILE, "w") as file:
-        file.write(current_ip)
-
+    CURRENT_IP_FILE.write_text(current_ip)
     logger.info(f"IP address changed to {current_ip}")
 
 
-def validate_ip(ip: str, protocol: IpProtocol) -> IpProtocol:
+def validate_ip(ip: str) -> IpProtocol:
     try:
         addr = ipaddress.ip_address(ip)
     except ValueError as e:
-        logger.error(e)
-        logger.error(f"IP Address from {PUBLIC_IP_WEBSITE} is neither IPv4 or IPv6. Received: {ip}")
+        logger.error(f"Invalid IP Address: {e}")
         return IpProtocol.INVALID
-    
-    protocol = IpProtocol.IPv4 if isinstance(addr, ipaddress.IPv4Address) else IpProtocol.IPv6
-    logger.info(f"Received IP protocol: {protocol.value}")
-    
-    return protocol
+
+    return IpProtocol.IPv4 if isinstance(addr, ipaddress.IPv4Address) else IpProtocol.IPv6
 
 
 def main():
     previous_ip = None
 
     if CURRENT_IP_FILE.exists():
-        with open(CURRENT_IP_FILE, "r") as file:
-            previous_ip = file.read().strip()
+        previous_ip = CURRENT_IP_FILE.read_text().strip()
+    
 
     current_ip = get_current_ip()
-    protocol: IpProtocol = validate_ip(current_ip, IP_PROTOCOL)
+    if current_ip is None:
+        logger.error("No IP Address retrieved.")
+        return
     
+    protocol: IpProtocol = validate_ip(current_ip)
     if protocol != IP_PROTOCOL and protocol != IpProtocol.INVALID:
         logger.warning(f"Received IP address {current_ip} is {protocol.value}. Expected an {IP_PROTOCOL.value} address.")
 
     if DEBUG or current_ip != previous_ip:
-        notify_ip_change(current_ip)
+        notify_ip_change(new_ip=current_ip)
+        update_current_ip_file(current_ip=current_ip)
 
 
 if __name__ == "__main__":
