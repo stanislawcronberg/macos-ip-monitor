@@ -1,3 +1,4 @@
 loguru
 pync
 requests
+python-dotenv
