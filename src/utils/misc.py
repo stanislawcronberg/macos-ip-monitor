@@ -1,5 +1,6 @@
 import subprocess
 
+import pyperclip
 from config import Config
 from logger_config import logger
 from pync import Notifier
@@ -22,3 +23,8 @@ def notify_ip_change(new_ip: str | None) -> None:
 def update_current_ip_file(current_ip: str) -> None:
     Config.CURRENT_IP_FILE.write_text(current_ip)
     logger.info(f"IP address changed to {current_ip}")
+
+
+def copy_ip_to_buffer(new_ip: str):
+    pyperclip.copy(new_ip)
+    logger.debug(f"Copying IP {new_ip} to buffer.")
