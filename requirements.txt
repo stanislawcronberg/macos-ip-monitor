@@ -1,0 +1,5 @@
+loguru
+pync
+requests
+python-dotenv
+pyperclip
