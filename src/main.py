@@ -3,7 +3,7 @@ from pathlib import Path
 from config import Config
 from logger_config import logger
 from structures import IpProtocol
-from utils.misc import is_process_running, notify_ip_change, update_current_ip_file
+from utils.misc import copy_ip_to_buffer, is_process_running, notify_ip_change, update_current_ip_file
 from utils.network import get_current_ip, validate_ip
 
 
@@ -35,6 +35,9 @@ def main():
     if Config.DEBUG or current_ip != previous_ip:
         notify_ip_change(new_ip=current_ip)
         update_current_ip_file(current_ip=current_ip)
+
+        if Config.COPY_IP_TO_BUFFER:
+            copy_ip_to_buffer(new_ip=current_ip)
 
 
 if __name__ == "__main__":
