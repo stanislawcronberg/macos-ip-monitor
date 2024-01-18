@@ -1,8 +1,8 @@
 # macos-ip-monitor
-![Banner](https://github.com/stanislawcronberg/macos-ip-monitor/raw/main/assets/banner.png)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 ![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Python Version](https://img.shields.io/badge/python-3.11-blue.svg)
+![Banner](https://github.com/stanislawcronberg/macos-ip-monitor/raw/main/assets/banner.png)
 
 Minimalistic tool that scans for changes in your public IP address and triggers a macOS notification when it detects a change.
 
