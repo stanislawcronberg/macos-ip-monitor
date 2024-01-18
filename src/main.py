@@ -12,7 +12,7 @@ def main():
     CURRENT_IP_FILE = Path(Config.CURRENT_IP_FILE)
     IP_PROTOCOL: IpProtocol = Config.IP_PROTOCOL
 
-    if not (PROCESS_NAME and is_process_running(PROCESS_NAME)):
+    if not (PROCESS_NAME and is_process_running(PROCESS_NAME)) and not Config.DEBUG:
         logger.debug(f"Process {PROCESS_NAME} is not running. Not checking IP.")
         return
 
