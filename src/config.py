@@ -15,3 +15,4 @@ class Config:
     LOG_FILE = Path(os.getenv("LOG_FILEPATH", "logs/ip_change.log"))
     CURRENT_IP_FILE = Path(os.getenv("CURRENT_IP_FILEPATH", "logs/current_ip.txt"))
     DEBUG = os.getenv("DEBUG", "False") == "True"
+    COPY_IP_TO_BUFFER = os.getenv("COPY_IP_TO_BUFFER", "False") == "True"
