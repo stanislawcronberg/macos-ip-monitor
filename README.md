@@ -11,6 +11,7 @@ Minimalistic tool that scans for changes in your public IP address and triggers 
 - [ ] Add a separate log file for application debug level
 - [ ] Consider improving the Config setup (maybe just yaml or something else)
     - Creating a .env file to run the project is annoying, at the same time I don't want to share specific configuration links to Azure
+- [ ] Add some tests to verify to help users verify the installation
 
 
 ## Why this was created?
