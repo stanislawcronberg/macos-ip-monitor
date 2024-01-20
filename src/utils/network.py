@@ -3,8 +3,7 @@ import json
 from enum import Enum
 
 import requests
-from config import Config
-from logger_config import logger
+from configs import Config, logger
 
 
 class IpProtocol(Enum):

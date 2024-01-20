@@ -1,7 +1,6 @@
 from pathlib import Path
 
-from config import Config
-from logger_config import logger
+from configs import Config, logger
 from utils.misc import copy_ip_to_buffer, is_process_running, notify_ip_change, update_current_ip_file
 from utils.network import IpProtocol, retrieve_ip, validate_ip
 

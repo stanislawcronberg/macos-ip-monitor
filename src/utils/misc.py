@@ -1,8 +1,7 @@
 import subprocess
 
 import pyperclip
-from config import Config
-from logger_config import logger
+from configs import Config, logger
 from pync import Notifier
 
 
