@@ -26,7 +26,7 @@ def main():
     protocol: IpProtocol = validate_ip(current_ip)
     if protocol != IP_PROTOCOL and protocol != IpProtocol.INVALID:
         logger.warning(
-            f"Received IP address {current_ip} is {protocol.value}. " f"Expected an {IP_PROTOCOL.value} address."
+            f"Received IP address {current_ip} is {protocol.value}. Expected an {IP_PROTOCOL.value} address."
         )
 
     if Config.DEBUG or current_ip != previous_ip:
