@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from structures import IpProtocol
+from utils.network import IpProtocol
 
 load_dotenv()
 

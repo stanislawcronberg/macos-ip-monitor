@@ -1,13 +1,19 @@
 import ipaddress
 import json
+from enum import Enum
 
 import requests
 from config import Config
 from logger_config import logger
-from structures import IpProtocol
 
 
-def get_current_ip() -> str | None:
+class IpProtocol(Enum):
+    IPv4 = "IPv4"
+    IPv6 = "IPv6"
+    INVALID = "Invalid"
+
+
+def retrieve_ip() -> str | None:
     try:
         response = requests.get(Config.PUBLIC_IP_WEBSITE)
         response.raise_for_status()
