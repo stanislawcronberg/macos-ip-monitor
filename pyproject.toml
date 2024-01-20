@@ -4,7 +4,6 @@ line-length = 120
 [tool.ruff]
 line-length = 120
 
-exclude = ["jupyter_notebook_config.py"]
 select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
