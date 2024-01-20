@@ -104,9 +104,7 @@ conda activate ipmonitor
 The project is structured as follows:
 
 - [`src/config.py`](src/config.py): Contains the configuration class that loads settings from the `.env` file.
-- [`src/logger_config.py`](src/logger_config.py): Configures the logger used across the application.
 - [`src/utils/`](src/utils/): Contains utility modules for network checks, notifications, and miscellaneous functions.
-- [`src/structures.py`](src/structures.py): Defines the `IpProtocol` Enum used for IP type checking.
 - [`src/main.py`](src/main.py): The main script that orchestrates the IP monitoring logic.
 
 ## License
