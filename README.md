@@ -8,7 +8,6 @@ Minimalistic tool that scans for changes in your public IP address and triggers 
 
 ### TODO:
 
-- [ ] Add a separate log file for application debug level
 - [ ] Consider improving the Config setup (maybe just yaml or something else)
     - Creating a .env file to run the project is annoying, at the same time I don't want to share specific configuration links to Azure
 - [ ] Add some tests to verify to help users verify the installation
@@ -36,7 +35,6 @@ Before running IP Monitor, configure the application by creating a `.env` file i
 - `PROCESS_NAME`: The name of the process to check for before running the IP Monitor. Leave blank to run without process check.
 - `IP_WEBSITE`: The URL to fetch the public IP from. Default is `https://ipinfo.io`.
 - `NOTIFICATION_LINK`: The URL to open when the notification is clicked. Default is `https://azure.com`.
-- `LOG_FILEPATH`: Path to the log file. Default is `logs/ip_change.log`.
 - `CURRENT_IP_FILEPATH`: Path to the file storing the current IP address. Default is `logs/current_ip.txt`.
 - `DEBUG`: Set to `True` for debug mode. Default is `False`.
 - `COPY_IP_TO_BUFFER`: Set to `True` to copy the new IP address to the clipboard. Default is `False`.
@@ -46,7 +44,6 @@ Example `.env` file:
 IP_WEBSITE=https://ipinfo.io
 PROCESS_NAME=dbeaver
 NOTIFICATION_LINK=https://azure.com
-LOG_FILEPATH=logs/ip_change.log
 CURRENT_IP_FILEPATH=logs/current_ip.txt
 IP_PROTOCOL=IPv4
 COPY_IP_TO_BUFFER=True
