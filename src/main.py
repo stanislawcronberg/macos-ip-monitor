@@ -1,10 +1,9 @@
 from pathlib import Path
 
 from config import Config
-from logger_config import logger
-from structures import IpProtocol
+from loguru import logger
 from utils.misc import copy_ip_to_buffer, is_process_running, notify_ip_change, update_current_ip_file
-from utils.network import get_current_ip, validate_ip
+from utils.network import IpProtocol, retrieve_ip, validate_ip
 
 
 def main():
@@ -21,7 +20,7 @@ def main():
     if CURRENT_IP_FILE.exists():
         previous_ip = CURRENT_IP_FILE.read_text().strip()
 
-    current_ip = get_current_ip()
+    current_ip = retrieve_ip(Config.IP_WEBSITE)
     if current_ip is None:
         logger.error("No IP Address retrieved.")
         return
