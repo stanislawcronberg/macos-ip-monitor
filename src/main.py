@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from config import Config
 from loguru import logger
 from utils.misc import copy_ip_to_buffer, is_process_running, notify_ip_change, update_current_ip_file
@@ -8,7 +6,7 @@ from utils.network import IpProtocol, retrieve_ip, validate_ip
 
 def main():
     PROCESS_NAME = Config.PROCESS_NAME
-    CURRENT_IP_FILE = Path(Config.CURRENT_IP_FILE)
+    CURRENT_IP_FILE = Config.CURRENT_IP_FILE
     IP_PROTOCOL: IpProtocol = Config.IP_PROTOCOL
 
     if not (PROCESS_NAME and is_process_running(PROCESS_NAME)) and not Config.DEBUG:
@@ -28,7 +26,7 @@ def main():
     protocol: IpProtocol = validate_ip(current_ip)
     if protocol != IP_PROTOCOL and protocol != IpProtocol.INVALID:
         logger.warning(
-            f"Received IP address {current_ip} is {protocol.value}. Expected an {IP_PROTOCOL.value} address."
+            f"Received IP address {current_ip} is {protocol.value}. " f"Expected an {IP_PROTOCOL.value} address."
         )
 
     if Config.DEBUG or current_ip != previous_ip:
