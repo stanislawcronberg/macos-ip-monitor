@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 
 from dotenv import load_dotenv
 from utils.network import IpProtocol
@@ -7,11 +6,11 @@ from utils.network import IpProtocol
 load_dotenv()
 
 
+# TODO: Create .env.sample file with the default values
 class Config:
     IP_PROTOCOL = IpProtocol[os.getenv("IP_PROTOCOL", "IPv4")]
     PROCESS_NAME = os.getenv("PROCESS_NAME", "")
-    IP_WEBSITE = os.getenv("IP_WEBSITE", "https://ipinfo.io")
-    NOTIFICATION_LINK = os.getenv("NOTIFICATION_LINK", "https://azure.com")
-    CURRENT_IP_FILE = Path(os.getenv("CURRENT_IP_FILEPATH", "logs/current_ip.txt"))
-    DEBUG = os.getenv("DEBUG", "False") == "True"
+    PUBLIC_IP_URL = os.getenv("PUBLIC_IP_URL", "https://ipinfo.io")
+    NOTIFICATION_URL = os.getenv("NOTIFICATION_URL", "https://azure.com")
     COPY_IP_TO_BUFFER = os.getenv("COPY_IP_TO_BUFFER", "False") == "True"
+    DEBUG = os.getenv("DEBUG", "False") == "True"

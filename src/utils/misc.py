@@ -5,6 +5,8 @@ from config import Config
 from loguru import logger
 from pync import Notifier
 
+# TODO: Add function for checking platform is Darwin or Linux
+
 
 def is_process_running(name: str) -> bool:
     try:
