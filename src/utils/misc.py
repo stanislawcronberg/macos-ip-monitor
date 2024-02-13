@@ -19,7 +19,7 @@ def is_process_running(name: str) -> bool:
 
 def notify_ip_change(new_ip: str | None) -> None:
     message = f"Your public IP address has changed to {new_ip}."
-    Notifier.notify(title="IP Address Change", message=message, open=Config.NOTIFICATION_LINK)
+    Notifier.notify(title="IP Address Change", message=message, open=Config.NOTIFICATION_URL)
 
 
 def update_current_ip_file(current_ip: str) -> None:
