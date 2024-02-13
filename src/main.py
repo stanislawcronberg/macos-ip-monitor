@@ -9,7 +9,7 @@ from utils.network import IpProtocol, get_ip_protocol, retrieve_ip
 def main():
     PROCESS_NAME = Config.PROCESS_NAME
     IP_PROTOCOL: IpProtocol = Config.IP_PROTOCOL
-    CURRENT_IP_FILE = Path(".current_ip.tx")
+    CURRENT_IP_FILE = Path(".current_ip.txt")
 
     # If the DEBUG flag is False, or the PROCESS_NAME is specified but not running,
     # then the script exits without checking the IP address.
@@ -43,7 +43,7 @@ def main():
     # then the IP address is updated and a notification is sent.
     if Config.DEBUG or current_ip != previous_ip:
         notify_ip_change(new_ip=current_ip)
-        update_current_ip_file(current_ip=current_ip)
+        update_current_ip_file(current_ip=current_ip, current_ip_file=CURRENT_IP_FILE)
 
         if Config.COPY_IP_TO_BUFFER:
             copy_ip_to_buffer(new_ip=current_ip)

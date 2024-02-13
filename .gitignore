@@ -161,3 +161,4 @@ cython_debug/
 
 logs/*.txt
 logs/*.log
+.current_ip.txt

@@ -1,4 +1,5 @@
 import subprocess
+from pathlib import Path
 
 import pyperclip
 from config import Config
@@ -22,8 +23,8 @@ def notify_ip_change(new_ip: str | None) -> None:
     Notifier.notify(title="IP Address Change", message=message, open=Config.NOTIFICATION_URL)
 
 
-def update_current_ip_file(current_ip: str) -> None:
-    Config.CURRENT_IP_FILE.write_text(current_ip)
+def update_current_ip_file(current_ip: str, current_ip_file: Path) -> None:
+    current_ip_file.write_text(current_ip)
     logger.info(f"IP address changed to {current_ip}")
 
 
