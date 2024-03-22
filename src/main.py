@@ -14,11 +14,9 @@ def main():
     # If the DEBUG flag is False, or the PROCESS_NAME is specified but not running,
     # then the script exits without checking the IP address.
     if not (Config.DEBUG or (PROCESS_NAME and is_process_running(PROCESS_NAME))):
-        logger.debug(f"Process {PROCESS_NAME} is not running. Not checking IP.")
+        if Config.DEBUG:
+            logger.debug(f"Process {PROCESS_NAME} is not running. Not checking IP.")
         return
-
-    if Config.DEBUG:
-        logger.info()
 
     # If the CURRENT_IP_FILE exists, then the previous IP address is retrieved.
     previous_ip = None
